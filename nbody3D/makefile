@@ -1,7 +1,10 @@
-all: nbody.g nbody.i nbody.cl
+all: nbody.g nbody.i nbody.cl nbody.gv
 
 nbody.g: nbody.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
+
+nbody.gv:nbody.c
+	gcc -ftree-vectorize -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
 nbody.i: nbody.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
@@ -10,5 +13,5 @@ nbody.cl: nbody.c
 	clang -Ofast $< -o $@ -fopenmp
 
 clean:
-	rm -Rf *~ nbody.g nbody.i nbody.cl *.optrpt
+	rm -Rf *~ nbody.g nbody.i nbody.cl nbody.gv *.optrpt
 

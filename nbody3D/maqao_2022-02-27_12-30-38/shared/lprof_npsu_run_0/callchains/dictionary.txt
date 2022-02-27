@@ -1,0 +1,7 @@
+psiginfo - :0
+libc-2.31.so
+__printf_chk - :0
+unknown kernel region
+kernel
+move_particles - :0
+nbody.gv
