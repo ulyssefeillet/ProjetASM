@@ -1,0 +1,4 @@
+function_id;module;function_name;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;cats;
+9;nbody.cl;move_particles;;99.97;46.9;;;;;;"100,0,0,0,0,0,0,0,0,0";
+-1;kernel;unknown_kernel_region;;0.02;0.01;;;;;;"0,0,0,0,100,0,0,0,0,0";
+8;nbody.cl;init;;0.01;0;;;;;;"0,0,0,0,100,0,0,0,0,0";
