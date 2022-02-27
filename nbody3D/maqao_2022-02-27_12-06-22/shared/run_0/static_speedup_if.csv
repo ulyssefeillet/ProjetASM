@@ -1,0 +1,4 @@
+Nb Loops;If Clean;If FP Vect;If Fully Vect;IF FP Only
+1;1;9.6054;9.6054;1.0001;
+2;1;9.6093;9.614;1.0001;
+3;1;9.6114;9.6227;1.0001;

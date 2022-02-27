@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x16c0;:0;VMOVSS	0xc(%RCX),%XMM1;
+0x16c5;:0;LEA	0x18(%RCX),%RCX;
+0x16c9;:0;VFMADD213SS	-0x18(%RCX),%XMM0,%XMM1;
+0x16cf;:0;VMOVSS	%XMM1,-0x18(%RCX);
+0x16d4;:0;VMOVSS	-0x8(%RCX),%XMM1;
+0x16d9;:0;VFMADD213SS	-0x14(%RCX),%XMM0,%XMM1;
+0x16df;:0;VMOVSS	%XMM1,-0x14(%RCX);
+0x16e4;:0;VMOVSS	-0x4(%RCX),%XMM1;
+0x16e9;:0;VFMADD213SS	-0x10(%RCX),%XMM0,%XMM1;
+0x16ef;:0;VMOVSS	%XMM1,-0x10(%RCX);
+0x16f4;:0;CMP	%RCX,%RSI;
+0x16f7;:0;JNE	16c0 <move_particles+0xe0>;

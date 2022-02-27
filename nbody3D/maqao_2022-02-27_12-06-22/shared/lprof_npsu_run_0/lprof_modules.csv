@@ -1,0 +1,4 @@
+name;time_p;time_s;cpi_ratio;
+/users/user4421/ProjetASM/nbody3D/maqao_2022-02-27_12-06-22/binaries/nbody.g;99.97;90.55;;
+kernel;0.02;0.02;;
+/usr/lib/x86_64-linux-gnu/libc-2.31.so;0.01;0.01;;
