@@ -1,0 +1,43 @@
+
+* Info: Selecting the 'perf-low-ppn' engine for node knl03
+
+* Info: Process launched (host knl03, process 969792)
+[1mTotal memory size:[0m 393216 B, 384 KiB, 0 MiB
+
+[1m Step    Time, s Interact/s  GFLOP/s[0m
+    0  6.412e-01  4.187e+08      9.6 *
+    1  6.341e-01  4.233e+08      9.7 *
+    2  6.319e-01  4.248e+08      9.8 *
+    3  6.317e-01  4.249e+08      9.8 
+    4  6.338e-01  4.235e+08      9.7 
+    5  6.346e-01  4.229e+08      9.7 
+    6  6.401e-01  4.193e+08      9.6 
+    7  6.366e-01  4.216e+08      9.7 
+    8  6.318e-01  4.249e+08      9.8 
+    9  6.335e-01  4.237e+08      9.7 
+-----------------------------------------------------
+[1mAverage performance:      [42m       9.7 +- 0.0 GFLOP/s[0m
+-----------------------------------------------------
+
+* Info: Process finished (host knl03, process 969792)
+* Info: Dumping samples (host knl03, process 969792)
+* Info: Dumping source info for callchain nodes (host knl03, process 969792)
+* Info: Building/writing metadata (host knl03)
+* Info: Finished collect step (host knl03, process 969792)
+
+Your experiment path is /users/user4421/ProjetASM/nbody3D/maqao_2022-02-28_11-18-37/tools/lprof_npsu_run_0
+
+To display your profiling results:
+#################################################################################################
+#    LEVEL    |     REPORT     |                            COMMAND                             #
+#################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/users/user4421/ProjetASM/nbody3D/maqao_2  #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/users/user4421/ProjetASM/nbody3D/maqao_2  #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/users/user4421/ProjetASM/nbody3D/maq  #
+#################################################################################################
+

@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <immintrin.h>
+#include <stdbool.h>
 
 //
 typedef float              f32;
@@ -54,6 +56,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       f32 fz = 0.0;
 
       //23 floating-point operations
+
       for (u64 j = 0; j < n; j++)
 	{
 	  //Newton's law
@@ -74,7 +77,33 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].vy += dt * fy; //21
       p[i].vz += dt * fz; //23
     }
+/*
+  bool vectorization=false;
+  int vector_factor = 256/32;
+  //with vectorization
+  // Using Single Instruction Multiple Data instructions
+  if (vectorization)
+  {
+	__m256 _sumx = {0.0, 0.0, 0.0, 0.0};
+	__m256 _sumy = {0.0, 0.0, 0.0, 0.0};
+	__m256 _sumz = {0.0, 0.0, 0.0, 0.0};
+	__m256 _dt = _mm256_load_ps(&dt);
 
+        for(u64 i = 0; i < n; i+=vector_factor)
+        {
+  	__m256 vx = _mm256_load_ps(&p[i].vx);
+	__m256 vy = _mm256_load_ps(&p[i].vy);
+	__m256 vz = _mm256_load_ps(&p[i].vz);	
+
+	_sumx = _mm256_fmadd_ps (_dt, vx, _sumx);
+	_sumy = _mm256_fmadd_ps (_dt, vy, _sumy);
+	_sumz = _mm256_fmadd_ps (_dt, vz, _sumz);
+	
+  	}
+  }
+
+  else
+  {*/
   //6 floating-point operations
   for (u64 i = 0; i < n; i++)
     {
@@ -82,6 +111,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].y += dt * p[i].vy;
       p[i].z += dt * p[i].vz;
     }
+  //}
 }
 
 //
@@ -99,8 +129,9 @@ int main(int argc, char **argv)
   const u64 warmup = 3;
   
   //
-  particle_t *p = malloc(sizeof(particle_t) * n);
-
+  //particle_t *p = malloc(sizeof(particle_t) * n);
+  particle_t *p = 0;
+  int alloc = posix_memalign((void**)&p, 32, n*sizeof(particle_t));
   //
   init(p, n);
 

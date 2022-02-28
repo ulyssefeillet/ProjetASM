@@ -4,13 +4,13 @@ nbody.g: nbody.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
 nbody.gv:nbody.c
-	gcc -ftree-vectorize -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
+	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
 nbody.i: nbody.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
 
 nbody.cl: nbody.c
-	clang -Ofast $< -o $@ -fopenmp
+	clang -Ofast $< -o $@ -fopenmp -march=native 
 
 clean:
 	rm -Rf *~ nbody.g nbody.i nbody.cl nbody.gv *.optrpt

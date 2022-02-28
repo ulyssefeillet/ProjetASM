@@ -18,87 +18,90 @@ Begin optimization report for: main(int, char **)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main(int, char **)) [1] nbody.c(89,1)
-  -> INLINE: (91,30) atoll(const char *)
+INLINE REPORT: (main(int, char **)) [1] nbody.c(119,1)
+  -> INLINE: (121,30) atoll(const char *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (105,3) init(particle_t *, u64)
-  -> INLINE: (120,7) move_particles(particle_t *, const f32, u64)
+  -> INLINE: (136,3) init(particle_t *, u64)
+  -> INLINE: (151,7) move_particles(particle_t *, const f32, u64)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at nbody.c(23,3) inlined into nbody.c(105,3)
+LOOP BEGIN at nbody.c(25,3) inlined into nbody.c(136,3)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between call:rand(void) (26:21) and call:rand(void) (38:22)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:rand(void) (28:21) and call:rand(void) (40:22)
 LOOP END
 
-LOOP BEGIN at nbody.c(115,3)
+LOOP BEGIN at nbody.c(146,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at nbody.c(49,3) inlined into nbody.c(120,7)
+   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(151,7)
       remark #25236: Loop with pragma of trip count = 16384 ignored for large value
       remark #25461: Imperfect Loop Unroll-Jammed by 2   (pre-vector) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at nbody.c(57,7) inlined into nbody.c(120,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
          remark #15300: LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at nbody.c(57,7) inlined into nbody.c(120,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
       <Remainder loop for vectorization>
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
    LOOP END
 
-   LOOP BEGIN at nbody.c(49,3) inlined into nbody.c(120,7)
+   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(151,7)
    <Remainder>
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at nbody.c(57,7) inlined into nbody.c(120,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
          remark #15300: LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at nbody.c(57,7) inlined into nbody.c(120,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
       <Remainder loop for vectorization>
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
    LOOP END
 
-   LOOP BEGIN at nbody.c(79,3) inlined into nbody.c(120,7)
-      remark #15300: LOOP WAS VECTORIZED
-   LOOP END
+   LOOP BEGIN at nbody.c(108,3) inlined into nbody.c(151,7)
+      remark #25236: Loop with pragma of trip count = 16384 ignored for large value
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (110:7) and (p+i*24)[_2] (110:7)
 
-   LOOP BEGIN at nbody.c(79,3) inlined into nbody.c(120,7)
-   <Remainder loop for vectorization>
-      remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP BEGIN at nbody.c(110,7) inlined into nbody.c(151,7)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (110:7) and *(p+i*24+_2*4+12) (110:7)
+         remark #25436: completely unrolled by 3  
+      LOOP END
    LOOP END
 LOOP END
 
     Report from: Code generation optimizations [cg]
 
-nbody.c(89,1):remark #34051: REGISTER ALLOCATION : [main] nbody.c:89
+nbody.c(119,1):remark #34051: REGISTER ALLOCATION : [main] nbody.c:119
 
     Hardware registers
         Reserved     :    2[ rsp rip]
         Available    :   63[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm31 k0-k7]
         Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :   54[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm31 k0-k7]
+        Assigned     :   52[ rax rdx rcx rbx rsi rdi r8-r10 r12-r15 zmm0-zmm31 k0-k6]
         
     Routine temporaries
-        Total         :     769
-            Global    :     124
-            Local     :     645
-        Regenerable   :      86
-        Spilled       :      20
+        Total         :     686
+            Global    :     109
+            Local     :     577
+        Regenerable   :      71
+        Spilled       :      17
         
     Routine stack
-        Variables     :      28 bytes*
-            Reads     :       8 [3.56e-01 ~ 0.4%]
-            Writes    :       8 [3.56e-01 ~ 0.4%]
-        Spills        :     160 bytes*
-            Reads     :      26 [2.38e-01 ~ 0.2%]
-            Writes    :      24 [1.76e-01 ~ 0.2%]
+        Variables     :      36 bytes*
+            Reads     :      11 [4.05e-01 ~ 0.4%]
+            Writes    :       9 [3.89e-01 ~ 0.4%]
+        Spills        :     136 bytes*
+            Reads     :      24 [2.32e-01 ~ 0.2%]
+            Writes    :      22 [1.90e-01 ~ 0.2%]
     
     Notes
     
@@ -112,54 +115,54 @@ Begin optimization report for: move_particles(particle_t *, const f32, u64)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (move_particles(particle_t *, const f32, u64)) [3] nbody.c(44,1)
+INLINE REPORT: (move_particles(particle_t *, const f32, u64)) [3] nbody.c(46,1)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at nbody.c(49,3)
+LOOP BEGIN at nbody.c(51,3)
    remark #25461: Imperfect Loop Unroll-Jammed by 2   (pre-vector) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at nbody.c(57,7)
+   LOOP BEGIN at nbody.c(60,7)
       remark #15300: LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at nbody.c(57,7)
+   LOOP BEGIN at nbody.c(60,7)
    <Remainder loop for vectorization>
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 LOOP END
 
-LOOP BEGIN at nbody.c(49,3)
+LOOP BEGIN at nbody.c(51,3)
 <Remainder>
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at nbody.c(57,7)
+   LOOP BEGIN at nbody.c(60,7)
       remark #15300: LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at nbody.c(57,7)
+   LOOP BEGIN at nbody.c(60,7)
    <Remainder loop for vectorization>
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 LOOP END
 
-LOOP BEGIN at nbody.c(79,3)
+LOOP BEGIN at nbody.c(108,3)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (81:7) and (p+i*24)[_2] (81:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (110:7) and (p+i*24)[_2] (110:7)
 
-   LOOP BEGIN at nbody.c(81,7)
+   LOOP BEGIN at nbody.c(110,7)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (81:7) and *(p+i*24+_2*4+12) (81:7)
+      remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (110:7) and *(p+i*24+_2*4+12) (110:7)
       remark #25436: completely unrolled by 3  
    LOOP END
 LOOP END
 
     Report from: Code generation optimizations [cg]
 
-nbody.c(44,1):remark #34051: REGISTER ALLOCATION : [move_particles] nbody.c:44
+nbody.c(46,1):remark #34051: REGISTER ALLOCATION : [move_particles] nbody.c:46
 
     Hardware registers
         Reserved     :    2[ rsp rip]
@@ -194,20 +197,20 @@ Begin optimization report for: init(particle_t *, u64)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (init(particle_t *, u64)) [4] nbody.c(22,1)
+INLINE REPORT: (init(particle_t *, u64)) [4] nbody.c(24,1)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at nbody.c(23,3)
+LOOP BEGIN at nbody.c(25,3)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between call:rand(void) (26:21) and call:rand(void) (38:22)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:rand(void) (28:21) and call:rand(void) (40:22)
 LOOP END
 
     Report from: Code generation optimizations [cg]
 
-nbody.c(22,1):remark #34051: REGISTER ALLOCATION : [init] nbody.c:22
+nbody.c(24,1):remark #34051: REGISTER ALLOCATION : [init] nbody.c:24
 
     Hardware registers
         Reserved     :    2[ rsp rip]
