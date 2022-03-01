@@ -3,14 +3,14 @@ all: nbody.g nbody.i nbody.cl nbody.gv
 nbody.g: nbody.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
-nbody.gv:nbody.c
-	gcc -march=native -mavx2 -Ofast -O3 $< -o $@ -lm -fopenmp
+nbody2.g:nbody2.c
+	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
 nbody.i: nbody.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
 
 nbody.cl: nbody.c
-	clang -Ofast $< -o $@ -fopenmp -march=native 
+	clang -Ofast $< -o $@ -fopenmp -march=native
 
 clean:
 	rm -Rf *~ nbody.g nbody.i nbody.cl nbody.gv *.optrpt

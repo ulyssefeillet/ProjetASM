@@ -77,8 +77,8 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].vy += dt * fy; //21
       p[i].vz += dt * fz; //23
     }
-
-  bool vectorization=false;
+/*
+  bool vectorization=true;
   int vector_factor = 256/32;
 
   //with vectorization
@@ -108,7 +108,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
    }
 
   else
-  {
+  {*/
   //6 floating-point operations
   for (u64 i = 0; i < n; i++)
     {
@@ -116,7 +116,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].y += dt * p[i].vy;
       p[i].z += dt * p[i].vz;
     }
-  }
+  //}
 }
 
 //
@@ -136,8 +136,8 @@ int main(int argc, char **argv)
   //
   //particle_t *p = malloc(sizeof(particle_t) * n);
   particle_t *p = 0;
-  int alloc = posix_memalign((void**)&p, 32, n*sizeof(particle_t));
-  //
+  int alloc = posix_memalign((void**)&p, 32, n*sizeof(particle_t)); 
+//
   init(p, n);
 
   const u64 s = sizeof(particle_t) * n;
