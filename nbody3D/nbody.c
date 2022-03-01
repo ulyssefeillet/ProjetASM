@@ -134,9 +134,7 @@ int main(int argc, char **argv)
   const u64 warmup = 3;
   
   //
-  //particle_t *p = malloc(sizeof(particle_t) * n);
-  particle_t *p = 0;
-  int alloc = posix_memalign((void**)&p, 32, n*sizeof(particle_t));
+  particle_t *p = malloc(sizeof(particle_t) * n);
   //
   init(p, n);
 
