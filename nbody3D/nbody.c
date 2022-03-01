@@ -85,9 +85,9 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
   // Using Single Instruction Multiple Data instructions
   if (vectorization)
   {
-	__m256 _sumx = _mm256_set_ps{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-	__m256 _sumy = _mm256_set_ps{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-	__m256 _sumz = _mm256_set_ps{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+	__m256 _sumx = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+	__m256 _sumy = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+	__m256 _sumz = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	__m256 _dt = _mm256_load_ps(&dt);
 
         for(u64 i = 0; i < n; i+=vector_factor)
@@ -116,7 +116,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].y += dt * p[i].vy;
       p[i].z += dt * p[i].vz;
     }
-  //}
+  }
 }
 
 //
