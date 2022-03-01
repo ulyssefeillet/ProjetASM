@@ -18,61 +18,61 @@ Begin optimization report for: main(int, char **)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main(int, char **)) [1] nbody.c(119,1)
-  -> INLINE: (121,30) atoll(const char *)
+INLINE REPORT: (main(int, char **)) [1] nbody.c(120,1)
+  -> INLINE: (122,30) atoll(const char *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (136,3) init(particle_t *, u64)
-  -> INLINE: (151,7) move_particles(particle_t *, const f32, u64)
+  -> INLINE: (137,3) init(particle_t *, u64)
+  -> INLINE: (152,7) move_particles(particle_t *, const f32, u64)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at nbody.c(25,3) inlined into nbody.c(136,3)
+LOOP BEGIN at nbody.c(25,3) inlined into nbody.c(137,3)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
    remark #15346: vector dependence: assumed OUTPUT dependence between call:rand(void) (28:21) and call:rand(void) (40:22)
 LOOP END
 
-LOOP BEGIN at nbody.c(146,3)
+LOOP BEGIN at nbody.c(147,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(151,7)
+   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(152,7)
       remark #25236: Loop with pragma of trip count = 16384 ignored for large value
       remark #25461: Imperfect Loop Unroll-Jammed by 2   (pre-vector) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(152,7)
          remark #15300: LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(152,7)
       <Remainder loop for vectorization>
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
    LOOP END
 
-   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(151,7)
+   LOOP BEGIN at nbody.c(51,3) inlined into nbody.c(152,7)
    <Remainder>
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(152,7)
          remark #15300: LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(151,7)
+      LOOP BEGIN at nbody.c(60,7) inlined into nbody.c(152,7)
       <Remainder loop for vectorization>
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
    LOOP END
 
-   LOOP BEGIN at nbody.c(108,3) inlined into nbody.c(151,7)
+   LOOP BEGIN at nbody.c(109,3) inlined into nbody.c(152,7)
       remark #25236: Loop with pragma of trip count = 16384 ignored for large value
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (110:7) and (p+i*24)[_2] (110:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (111:7) and (p+i*24)[_2] (111:7)
 
-      LOOP BEGIN at nbody.c(110,7) inlined into nbody.c(151,7)
+      LOOP BEGIN at nbody.c(111,7) inlined into nbody.c(152,7)
          remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-         remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (110:7) and *(p+i*24+_2*4+12) (110:7)
+         remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (111:7) and *(p+i*24+_2*4+12) (111:7)
          remark #25436: completely unrolled by 3  
       LOOP END
    LOOP END
@@ -80,7 +80,7 @@ LOOP END
 
     Report from: Code generation optimizations [cg]
 
-nbody.c(119,1):remark #34051: REGISTER ALLOCATION : [main] nbody.c:119
+nbody.c(120,1):remark #34051: REGISTER ALLOCATION : [main] nbody.c:120
 
     Hardware registers
         Reserved     :    2[ rsp rip]
@@ -97,11 +97,11 @@ nbody.c(119,1):remark #34051: REGISTER ALLOCATION : [main] nbody.c:119
         
     Routine stack
         Variables     :      36 bytes*
-            Reads     :      11 [4.05e-01 ~ 0.4%]
-            Writes    :       9 [3.89e-01 ~ 0.4%]
+            Reads     :      11 [4.07e-01 ~ 0.4%]
+            Writes    :       9 [3.91e-01 ~ 0.4%]
         Spills        :     136 bytes*
-            Reads     :      24 [2.32e-01 ~ 0.2%]
-            Writes    :      22 [1.90e-01 ~ 0.2%]
+            Reads     :      24 [2.33e-01 ~ 0.2%]
+            Writes    :      22 [1.91e-01 ~ 0.2%]
     
     Notes
     
@@ -149,13 +149,13 @@ LOOP BEGIN at nbody.c(51,3)
    LOOP END
 LOOP END
 
-LOOP BEGIN at nbody.c(108,3)
+LOOP BEGIN at nbody.c(109,3)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (110:7) and (p+i*24)[_2] (110:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between (p+i*24)[_2] (111:7) and (p+i*24)[_2] (111:7)
 
-   LOOP BEGIN at nbody.c(110,7)
+   LOOP BEGIN at nbody.c(111,7)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (110:7) and *(p+i*24+_2*4+12) (110:7)
+      remark #15346: vector dependence: assumed FLOW dependence between (p+i*24)[_2] (111:7) and *(p+i*24+_2*4+12) (111:7)
       remark #25436: completely unrolled by 3  
    LOOP END
 LOOP END
@@ -179,8 +179,8 @@ nbody.c(46,1):remark #34051: REGISTER ALLOCATION : [move_particles] nbody.c:46
         
     Routine stack
         Variables     :      24 bytes*
-            Reads     :       6 [3.93e-01 ~ 0.4%]
-            Writes    :       6 [3.93e-01 ~ 0.4%]
+            Reads     :       6 [3.95e-01 ~ 0.4%]
+            Writes    :       6 [3.95e-01 ~ 0.4%]
         Spills        :       0 bytes*
             Reads     :       0 [0.00e+00 ~ 0.0%]
             Writes    :       0 [0.00e+00 ~ 0.0%]

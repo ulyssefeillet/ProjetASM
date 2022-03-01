@@ -77,9 +77,10 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].vy += dt * fy; //21
       p[i].vz += dt * fz; //23
     }
-/*
+
   bool vectorization=false;
   int vector_factor = 256/32;
+
   //with vectorization
   // Using Single Instruction Multiple Data instructions
   if (vectorization)
@@ -98,12 +99,21 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
 	_sumx = _mm256_fmadd_ps (_dt, vx, _sumx);
 	_sumy = _mm256_fmadd_ps (_dt, vy, _sumy);
 	_sumz = _mm256_fmadd_ps (_dt, vz, _sumz);
-	
-  	}
-  }
+
+	_mm256_storeu_ps(&p[i].x, _sumx);
+ 	_mm256_storeu_ps(&p[i].y, _sumy);
+ 	_mm256_storeu_ps(&p[i].z, _sumz);
+
+        }/*
+	for(u64 i = 0; i < vector_factor; i++)
+	{
+		
+	}*/
+
+   }
 
   else
-  {*/
+  {
   //6 floating-point operations
   for (u64 i = 0; i < n; i++)
     {
@@ -111,7 +121,7 @@ void move_particles(particle_t *p, const f32 dt, u64 n)
       p[i].y += dt * p[i].vy;
       p[i].z += dt * p[i].vz;
     }
-  //}
+  }
 }
 
 //
