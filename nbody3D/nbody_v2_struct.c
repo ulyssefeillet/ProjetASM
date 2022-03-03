@@ -209,6 +209,11 @@ printf("move\n");
   
   //
   free(pa->tx);
+  free(pa->ty);
+  free(pa->tz);
+  free(pa->tvx);
+  free(pa->tvy);
+  free(pa->tvz);
   free(pa);
 
   //
