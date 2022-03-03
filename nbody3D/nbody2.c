@@ -5,12 +5,12 @@
 #include <stdlib.h>
 #include <immintrin.h>
 #include <stdbool.h>
-
+#include <string.h>
 //
 typedef float              f32;
 typedef double             f64;
 typedef unsigned long      u32;
-typedef unsigned long long u64;
+//typedef unsigned long long u64;
 //
 
 typedef struct particle_array {
@@ -43,7 +43,7 @@ void init(particle_a *pa, u32 n)
 }
 
 //
-void move_particles(particle_a *pa, const f32 dt, u32 n)
+void move_particles(particle_a *pa, const f32 dt, u32 n, bool vectorized)
 {
   //
   const f32 softening = 1e-20;
@@ -64,6 +64,27 @@ void move_particles(particle_a *pa, const f32 dt, u32 n)
 	  const f32 dx = pa->tx[j] - pa->tx[i]; //1
 	  const f32 dy = pa->ty[j] - pa->ty[i]; //2
 	  const f32 dz = pa->tz[j] - pa->tz[i]; //3
+
+/*	__m256 _dx = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        __m256 _dy = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        __m256 _dz = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+
+        __m256 _xi = _mm256_load_ps(&(pa->tx[i]));
+        __m256 _yi = _mm256_load_ps(&(pa->ty[i]));
+        __m256 _zi = _mm256_load_ps(&(pa->tz[i]));
+
+        __m256 _xj = _mm256_load_ps(&(pa->tx[j]));
+        __m256 _yj = _mm256_load_ps(&(pa->ty[j]));
+        __m256 _zj = _mm256_load_ps(&(pa->tz[j]));
+
+        _dx = _mm256_fsub_ps(xj, xi);
+        _dy = _mm256_fsub_ps(yj, yi);
+        _dz = _mm256_fsub_ps(zj, zi);
+
+        _mm256_storeu_ps(&(pa->tz[i]) , _);
+        _mm256_storeu_ps(&(pa->tz[i]) , _sumy);
+        _mm256_storeu_ps(&(pa->tz[i]), _sumz);
+*/
 	  const f32 d_2 = (dx * dx) + (dy * dy) + (dz * dz) + softening; //9
 	  const f32 d_3_over_2 = pow(d_2, 3.0 / 2.0); //11
 
@@ -79,13 +100,14 @@ void move_particles(particle_a *pa, const f32 dt, u32 n)
       pa->tvz[i] += dt * fz; //23
     }
 
-  bool vectorization=false;
+  
   int vector_factor = 256/32;
 
   //with vectorization
   // Using Single Instruction Multiple Data instructions
-  if (vectorization)
+  if (vectorized)
   {
+	printf("code vectorisé\n");
 	__m256 _sumx = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	__m256 _sumy = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	__m256 _sumz = _mm256_set_ps(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -93,17 +115,17 @@ void move_particles(particle_a *pa, const f32 dt, u32 n)
 
         for(u32 i = 0; i < n; i+=vector_factor)
         {
-  	__m256 vx = _mm256_load_ps(&(pa->tvx[i]));
-	__m256 vy = _mm256_load_ps(&(pa->tvy[i]));
-	__m256 vz = _mm256_load_ps(&(pa->tvz[i]));	
-
+        __m256 vx = _mm256_load_ps(&(pa->tvx[i]));
 	_sumx = _mm256_fmadd_ps(_dt, vx, _sumx);
-	_sumy = _mm256_fmadd_ps(_dt, vy, _sumy);
-	_sumz = _mm256_fmadd_ps(_dt, vz, _sumz);
-
 	_mm256_storeu_ps(&(pa->tx[i]), _sumx);
- 	_mm256_storeu_ps(&(pa->ty[i]), _sumy);
- 	_mm256_storeu_ps(&(pa->tz[i]), _sumz);
+
+        __m256 vy = _mm256_load_ps(&(pa->tvy[i]));
+	_sumy = _mm256_fmadd_ps(_dt, vy, _sumy);
+	_mm256_storeu_ps(&(pa->ty[i]), _sumy);
+
+        __m256 vz = _mm256_load_ps(&(pa->tvz[i]));
+	_sumz = _mm256_fmadd_ps(_dt, vz, _sumz);
+	_mm256_storeu_ps(&(pa->tz[i]), _sumz);
 
         }
    }
@@ -125,9 +147,17 @@ int main(int argc, char **argv)
 {
   //
   const u32 n = (argc > 1) ? atoll(argv[1]) : 16384;
+  bool vectorized=false;
+  if(argc==3)
+  {
+	if(strcmp(argv[2],"vec")==0)
+	{
+		vectorized = true;
+	}
+  }
+printf("move\n");
   const u32 steps= 10;
   const f32 dt = 0.01;
-
   //
   f64 rate = 0.0, drate = 0.0;
 
@@ -137,14 +167,15 @@ int main(int argc, char **argv)
   //
   //particle_t *p = malloc(sizeof(particle_t) * n);
   particle_a *pa = 0;
-  int alloc = posix_memalign((void**)&pa, 32, sizeof(particle_a));
-  alloc = posix_memalign((void**)&pa->tx, 32, n*sizeof(f32));
-  alloc = posix_memalign((void**)&pa->ty, 32, n*sizeof(f32));
-  alloc = posix_memalign((void**)&pa->tz, 32, n*sizeof(f32));
-  alloc = posix_memalign((void**)&pa->tvx, 32, n*sizeof(f32));
-  alloc = posix_memalign((void**)&pa->tvy, 32, n*sizeof(f32));
-  alloc = posix_memalign((void**)&pa->tvz, 32, n*sizeof(f32)); 
-//
+  const int align = 64;
+  int alloc = posix_memalign((void**)&pa, align, sizeof(particle_a));
+  alloc = posix_memalign((void**)&pa->tx, align, n*sizeof(f32));
+  alloc = posix_memalign((void**)&pa->ty, align, n*sizeof(f32));
+  alloc = posix_memalign((void**)&pa->tz, align, n*sizeof(f32));
+  alloc = posix_memalign((void**)&pa->tvx, align, n*sizeof(f32));
+  alloc = posix_memalign((void**)&pa->tvy, align, n*sizeof(f32));
+  alloc = posix_memalign((void**)&pa->tvz, align, n*sizeof(f32)); 
+ //
   init(pa, n);
 
   const u32 s = sizeof(pa)+sizeof(pa->tx); // à compléter
@@ -160,7 +191,7 @@ int main(int argc, char **argv)
       //Measure
       const f64 start = omp_get_wtime();
 
-      move_particles(pa, dt, n);
+      move_particles(pa, dt, n, vectorized);
 
       const f64 end = omp_get_wtime();
 
