@@ -1,0 +1,5 @@
+block_id;module;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;
+66;nbody_v3_openmp.cl;;99.39;4.48;4.46;4.48;4.49;0.39240130782127;2;
+61;nbody_v3_openmp.cl;;0.17;0.01;0.01;0.01;0.01;0;1;
+67;nbody_v3_openmp.cl;;0.06;0;0;0;0;0;1;
+39;nbody_v3_openmp.cl;;0.06;0;0;0;0;0;1;

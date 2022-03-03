@@ -1,0 +1,5 @@
+name;time_p;time_s;cpi_ratio;
+/users/user4421/ProjetASM/nbody3D/maqao_2022-03-03_20-15-04/binaries/nbody_v3_openmp.i;99.71;3.49;;
+/opt/intel/oneapi/compiler/2021.4.0/linux/compiler/lib/intel64_lin/libiomp5.so;0.14;0.01;;
+/usr/lib/x86_64-linux-gnu/ld-2.31.so;0.07;0;;
+/usr/lib/x86_64-linux-gnu/libc-2.31.so;0.07;0;;

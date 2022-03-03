@@ -1,0 +1,3 @@
+loop_id;module;function_name;function_id;source_info;level;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;
+5;nbody_v2_struct.g;main;1;;Innermost;99.67;9.03;9.03;9.03;9.03;0;1;
+2;nbody_v2_struct.g;main;1;;InBetween;0.28;0.02;0.02;0.02;0.02;0;1;

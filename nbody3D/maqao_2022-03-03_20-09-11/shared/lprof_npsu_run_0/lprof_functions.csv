@@ -1,0 +1,3 @@
+function_id;module;function_name;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;cats;
+9;nbody_v2_struct.cl;move_particles;;99.94;9;9;9;9;0;1;"100,0,0,0,0,0,0,0,0,0";
+8;nbody_v2_struct.cl;init;;0.06;0;0;0;0;0;1;"0,0,0,0,100,0,0,0,0,0";

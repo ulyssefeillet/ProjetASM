@@ -1,0 +1,4 @@
+block_id;module;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;
+52;nbody_v2_struct.cl;;99.83;8.98;8.98;8.98;8.98;0;1;
+53;nbody_v2_struct.cl;;0.11;0.01;0.01;0.01;0.01;0;1;
+36;nbody_v2_struct.cl;;0.06;0;0;0;0;0;1;

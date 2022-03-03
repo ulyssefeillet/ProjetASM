@@ -1,0 +1,1 @@
+maqao oneview -R1 --output-format=all --executable=./nbody_v2_struct.g 50000 

@@ -1,0 +1,4 @@
+loop_id;module;function_name;function_id;source_info;level;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;nb_threads;
+2;nbody_v3_openmp.cl;.omp_outlined.;10;;Innermost;99.11;4.46;;;;;;
+3;nbody_v3_openmp.cl;.omp_outlined.;10;;Outermost;0.44;0.02;;;;;;
+0;nbody_v3_openmp.cl;init;8;;Single;0.11;0;;;;;;

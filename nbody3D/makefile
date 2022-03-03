@@ -1,32 +1,32 @@
-all: nbody.g nbody.i nbody.cl nbody2.g nbody2.i nbody2.cl nbody3.g nbody3.i nbody3.cl
+all: nbody.g nbody.i nbody.cl nbody_v2_struct.g nbody_v2_struct.i nbody_v2_struct.cl nbody_v3_openmp.g nbody_v3_openmp.i nbody_v3_openmp.cl
 
 nbody.g: nbody.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
-nbody2.g:nbody2.c
+nbody_v2_struct.g:nbody_v2_struct.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
-nbody3.g:nbody_openmp.c
+nbody_v3_openmp.g:nbody_openmp.c
 	gcc -march=native -mavx2 -Ofast -fopt-info-all=nbody.gcc.optrpt $< -o $@ -lm -fopenmp
 
 nbody.i: nbody.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
 
-nbody2.i: nbody2.c
+nbody_v2_struct.i: nbody_v2_struct.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
 
-nbody3.i: nbody_openmp.c
+nbody_v3_openmp.i: nbody_openmp.c
 	icc -xhost -Ofast -qopt-report $< -o $@ -qmkl -qopenmp
 
 nbody.cl: nbody.c
 	clang -Ofast $< -o $@ -fopenmp -march=native
 
-nbody2.cl: nbody2.c
+nbody_v2_struct.cl: nbody_v2_struct.c
 	clang -Ofast $< -o $@ -fopenmp -march=native
 
-nbody3.cl: nbody_openmp.c
+nbody_v3_openmp.cl: nbody_openmp.c
 	clang -Ofast $< -o $@ -fopenmp -march=native
 
 clean:
-	rm -Rf *~ nbody.g nbody.i nbody.cl nbody2.g nbody2.i nbody2.cl nbody3.g nbody3.i nbody3.cl *.optrpt
+	rm -Rf *~ nbody.g nbody.i nbody.cl nbody_v2_struct.g nbody_v2_struct.i nbody_v2_struct.cl nbody_v3_openmp.g nbody_v3_openmp.i nbody_v3_openmp.cl *.optrpt
 

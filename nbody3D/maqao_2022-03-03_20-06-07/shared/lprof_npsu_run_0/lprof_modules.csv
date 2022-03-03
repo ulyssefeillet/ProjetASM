@@ -1,0 +1,4 @@
+name;time_p;time_s;cpi_ratio;
+/users/user4421/ProjetASM/nbody3D/maqao_2022-03-03_20-06-07/binaries/nbody_v2_struct.i;99.68;6.16;;
+/usr/lib/x86_64-linux-gnu/libc-2.31.so;0.24;0.01;;
+/usr/lib/x86_64-linux-gnu/ld-2.31.so;0.08;0;;
